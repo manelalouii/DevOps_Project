@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloner le code') {
             steps {
-                echo "Clonage de la branche 'manel'..."
+                echo "Clonage de la branche 'maneel'..."
                 git(
                     branch: 'manel',
                     url: 'https://github.com/user-nermine/DevOps_Project.git'
