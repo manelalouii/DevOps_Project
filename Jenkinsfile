@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage('Cloner le code') {
+        stage('Cloner le codee') {
             steps {
                 echo "Clonage de la branche 'manel'..."
                 git(
