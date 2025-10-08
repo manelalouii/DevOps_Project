@@ -4,7 +4,7 @@ pipeline {
         githubPush()
     }
     stages {
-        stage('Build') {
+        stage('Builld') {
             steps {
                 echo 'Pipeline lancé via webhook GitHub !'
             }
