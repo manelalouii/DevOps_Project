@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "mon-app"
-        IMAGE_TAG = "latest"
-    }
 
     triggers {
         githubPush() // Déclenchement automatique quand un push est fait sur GitHub
@@ -25,20 +21,9 @@ pipeline {
             }
         }
 
-        stage('Construire l\'image Docker') {
-            steps {
-                script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                }
-            }
-        }
 
-        stage('Lister les images Doocker') {
-            steps {
-                sh 'docker images'
-            }
-        }
-    }
+      
+}
 
     post {
         success {
