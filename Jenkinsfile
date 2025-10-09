@@ -22,10 +22,15 @@ pipeline {
             }
         }
 
+        stage('Build Java Project') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    // On construit l'image Docker avec nom et tag définis plus haut
                     def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
