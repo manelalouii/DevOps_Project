@@ -1,9 +1,15 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'jdk-22'  // le nom que tu as donné dans Jenkins
+    }
+
     environment {
         IMAGE_NAME = 'mon-image'
         IMAGE_TAG = 'latest'
+        JAVA_HOME = "${tool 'jdk-22'}"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
     stages {
