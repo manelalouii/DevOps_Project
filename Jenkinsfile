@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Lister les images Docker') {
+        stage('Lister les images Doocker') {
             steps {
                 sh 'docker images'
             }
