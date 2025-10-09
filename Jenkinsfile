@@ -1,27 +1,31 @@
 pipeline {
     agent any
 
-    triggers {
-        githubPush()
+    environment {
+        IMAGE_NAME = "mon-app"
+        IMAGE_TAG = "latest"
     }
 
     stages {
-        stage('Build') {
+        stage('git') {
             steps {
-                echo 'Pipeline lancé via webhook GitHub !'
-                // ajoute ici tes étapes réelles, par exemple :
-                // sh 'make build'
-                // sh 'npm install && npm test'
+               checkout scmGit(branches: [[name: '*/manel']], 
+               extensions: [], gitTool: 'Default', 
+               userRemoteConfigs: [[credentialsId: 'githubtokenn', 
+               url: 'https://github.com/manelalouii/DevOps_Project.git']])
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Build réussi'
+         stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                }
+            }
         }
-        failure {
-            echo 'Build échouéeeeeee'
+         stage('Lister les images Docker') {
+            steps {
+                sh 'docker images'
+            }
         }
     }
 }
