@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JAVA_HOME'  // Correspond exactement au nom dans la config Jenkins
+        jdk 'JAVA_HOME'  // Ensure this matches the name in Jenkins
     }
 
     environment {
@@ -17,6 +17,9 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM',
                     branches: [[name: '*/manel']],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [],
+                    gitTool: 'Default',
                     userRemoteConfigs: [[
                         credentialsId: 'githubtokenn',
                         url: 'https://github.com/manelalouii/DevOps_Project.git'
@@ -35,13 +38,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                dir('Order') {
+                    script {
+                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    }
                 }
             }
         }
 
-        stage('Lister les images Docker') {
+        stage('List Docker Images') {
             steps {
                 sh 'docker images'
             }
