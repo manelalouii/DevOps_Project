@@ -2,14 +2,13 @@ pipeline {
     agent any
 
     tools {
-        // Remplace 'jdk-22' par le nom exact configuré dans Jenkins pour ton JDK 22
-        jdk 'jdk-22'
+        jdk 'JAVA_HOME'  // Correspond exactement au nom dans la config Jenkins
     }
 
     environment {
         IMAGE_NAME = 'mon-image'
         IMAGE_TAG = 'latest'
-        JAVA_HOME = "${tool 'jdk-22'}"  // correspond au même que dans tools {}
+        JAVA_HOME = "${tool 'JAVA_HOME'}"
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
@@ -18,9 +17,6 @@ pipeline {
             steps {
                 checkout([$class: 'GitSCM',
                     branches: [[name: '*/manel']],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [],
-                    gitTool: 'Default',
                     userRemoteConfigs: [[
                         credentialsId: 'githubtokenn',
                         url: 'https://github.com/manelalouii/DevOps_Project.git'
@@ -39,10 +35,8 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                dir('Order') {
-                    script {
-                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-                    }
+                script {
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
         }
