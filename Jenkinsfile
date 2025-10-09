@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JAVA_HOME'  // doit correspondre au nom dans Jenkins
+        // Remplace 'jdk-22' par le nom exact configuré dans Jenkins pour ton JDK 22
+        jdk 'jdk-22'
     }
 
     environment {
         IMAGE_NAME = 'mon-image'
         IMAGE_TAG = 'latest'
-        JAVA_HOME = "${tool 'JAVA_HOME'}"
+        JAVA_HOME = "${tool 'jdk-22'}"  // correspond au même que dans tools {}
         PATH = "${JAVA_HOME}/bin:${env.PATH}"
     }
 
@@ -38,8 +39,10 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                dir('Order') {
+                    script {
+                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    }
                 }
             }
         }
