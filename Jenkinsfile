@@ -16,5 +16,17 @@ pipeline {
                 ])
             }
         }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                }
+            }
+        }
+         stage('Lister les images Docker') {
+            steps {
+                sh 'docker images'
+            }
+        }
     }
 }
