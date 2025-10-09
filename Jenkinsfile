@@ -1,8 +1,13 @@
 pipeline {
     agent any
 
+    environment {
+        IMAGE_NAME = 'mon-image'
+        IMAGE_TAG = 'latest'
+    }
+
     stages {
-        stage('Checkout Codeee') {
+        stage('Checkout Code') {
             steps {
                 checkout([$class: 'GitSCM',
                     branches: [[name: '*/manel']],
@@ -16,14 +21,17 @@ pipeline {
                 ])
             }
         }
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                    // On construit l'image Docker avec nom et tag définis plus haut
+                    def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                 }
             }
         }
-         stage('Lister les images Docker') {
+
+        stage('Lister les images Docker') {
             steps {
                 sh 'docker images'
             }
