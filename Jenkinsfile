@@ -24,7 +24,9 @@ pipeline {
 
         stage('Build Java Project') {
             steps {
-                sh 'mvn clean package'
+                dir('Order') {
+                    sh 'mvn clean package'
+                }
             }
         }
 
