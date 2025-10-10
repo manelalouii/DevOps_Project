@@ -36,7 +36,7 @@ pipeline {
             }
         }
         
-     stage('SonarQube Analysis') {
+     stage('sonarqube') {
             steps {
                 withSonarQubeEnv('SonarQubeServer') { // Nom de ton serveur SonarQube dans Jenkins (configuration globale)
                     dir('Order') {
