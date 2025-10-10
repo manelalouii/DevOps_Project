@@ -38,7 +38,7 @@ pipeline {
        
      stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonarqube') { // Nom de ton serveur SonarQube dans Jenkins (configuration globale)
+                withSonarQubeEnv('sonarqube') { 
                     dir('Order') {
                         sh 'mvn sonar:sonar -Dsonar.projectKey=devops_project -Dsonar.projectName=devops_project'
                     }
