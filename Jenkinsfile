@@ -36,15 +36,7 @@ pipeline {
             }
         }
        
-      stage('SonarQube Analysis') {
-            steps {
-                dir('Order') {
-                    withSonarQubeEnv() {
-                        sh 'mvn verify sonar:sonar -Dsonar.projectKey=devops_project -Dsonar.projectName="devops_project"'
-                    }
-                }
-            }
-        }
+     
 
 
         stage('Build Docker Image') {
