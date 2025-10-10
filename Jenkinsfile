@@ -35,15 +35,7 @@ pipeline {
                 }
             }
         }
-       stage('SonarQube Analysis') {
-    steps {
-        dir('Order') {
-            withSonarQubeEnv('sonarqube') {
-                sh 'mvn verify sonar:sonar -Dsonar.projectKey=devops_project -Dsonar.projectName="devops_project"'
-            }
-        }
-    }
-}
+       
      
 
 
