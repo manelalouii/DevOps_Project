@@ -35,8 +35,16 @@ pipeline {
                 }
             }
         }
-       
-     
+        
+     stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubeServer') { // Nom de ton serveur SonarQube dans Jenkins (configuration globale)
+                    dir('Order') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=devops_project -Dsonar.projectName=devops_project'
+                    }
+                }
+            }
+        }
 
 
         stage('Build Docker Image') {
