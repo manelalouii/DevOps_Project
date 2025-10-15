@@ -13,7 +13,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Codeee') {
+        stage('Checkout Codeeeeee') {
             steps {
                 checkout([$class: 'GitSCM',
                     branches: [[name: '*/manel']],
