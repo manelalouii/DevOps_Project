@@ -62,5 +62,7 @@ pipeline {
                 sh 'docker images'
             }
         }
+      
+
     }
 }
