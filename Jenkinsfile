@@ -51,7 +51,8 @@ pipeline {
             steps {
                 dir('Order') {
                     script {
-                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+                        def image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}").run("-p 8080:8080 --rm")
+        
                     }
                 }
             }
